@@ -21,10 +21,10 @@ public class Painter : MonoBehaviour
 
     void Paint()
     {
-        
-        for(int i=0; i<hight; i++)
+        DePaint();
+        for (int i=0; i< width; i++)
         {
-            for (int j=0; j<width; j++)
+            for (int j=0; j< hight; j++)
             {
                 Tile generatedTile = GenerateTile();
                 if(generatedTile == tileBlue || generatedTile == tileYellow)
@@ -38,14 +38,24 @@ public class Painter : MonoBehaviour
             }
         }
         
+        for (int i=position.x-1; i<width+1; i++)
+        {
+            tilemapUnwalkable.SetTile(position + new Vector3Int(i, position.y-1, 0), tileGray);
+            tilemapUnwalkable.SetTile(position + new Vector3Int(i, position.y + hight, 0), tileGray);
+        }
+        for (int i = position.y - 1; i < hight + 1; i++)
+        {
+            tilemapUnwalkable.SetTile(position + new Vector3Int(position.x - 1, i , 0), tileGray);
+            tilemapUnwalkable.SetTile(position + new Vector3Int(position.x + width, i, 0), tileGray);
+        }
         //tilemap.SetTile(position, tile);
     }
     [ContextMenu("DePaint")]
     void DePaint()
     {
-        for (int i = 0; i < hight; i++)
+        for (int i = position.x - 1; i < width + 1; i++)
         {
-            for (int j = 0; j < width; j++)
+            for (int j = position.y - 1; j < hight + 1; j++)
             {
                 tilemap.SetTile(position + new Vector3Int(i, j, 0), null);
                 tilemapUnwalkable.SetTile(position + new Vector3Int(i, j, 0), null);

@@ -10,11 +10,12 @@ public class TileInteraction : MonoBehaviour
 {
     [SerializeField] private Tilemap[] map;
     [SerializeField] private Tile tileGreen;
-    [SerializeField] private Tile tileYellow;
+    [SerializeField] public Tile tileYellow;
     [SerializeField] private Tilemap indicatorMap;
     [SerializeField] private Tile indicator;
-    private Vector3Int gridPositionMem;
-    private Vector3Int gridPosition;
+    public Vector3Int gridPositionMem;
+    
+    public Vector3Int gridPosition;
 
 
     [SerializeField] private GameObject tileDetailsUI;
@@ -25,7 +26,9 @@ public class TileInteraction : MonoBehaviour
 
     [SerializeField] private List<TileData> tileDatas;
     private Dictionary<TileBase,TileData>dataFromTiles;
-    
+
+    public TileBase clickedTile;
+    public TileBase clickedTileMem;
 
 
 
@@ -58,7 +61,7 @@ public class TileInteraction : MonoBehaviour
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 gridPosition = tilemap.WorldToCell(mousePosition);
 
-                TileBase clickedTile = tilemap.GetTile(gridPosition);
+                clickedTile = tilemap.GetTile(gridPosition);
 
                 if (clickedTile != null && (clickedTile == tileGreen || clickedTile == tileYellow))
                 {
@@ -80,6 +83,7 @@ public class TileInteraction : MonoBehaviour
                 }
             }
             gridPositionMem = gridPosition;
+            clickedTileMem = clickedTile;
         }
     }
 
