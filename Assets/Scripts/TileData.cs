@@ -11,4 +11,5 @@ public class TileData : ScriptableObject
 
     public bool walkable;
     
+
 }
