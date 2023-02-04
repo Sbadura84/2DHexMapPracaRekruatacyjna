@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 565d67e3e049b404fa0708a20f7f3c6c, type: 3}
   m_Name: YellowInteractiveTile
   m_EditorClassIdentifier: 
-  tiles: []
+  tiles:
+  - {fileID: 11400000, guid: 431a7fb2524bcb3459a2b3246d91f58a, type: 2}
   walkable: 0

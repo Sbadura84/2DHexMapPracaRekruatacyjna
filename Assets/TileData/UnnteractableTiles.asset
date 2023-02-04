@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 565d67e3e049b404fa0708a20f7f3c6c, type: 3}
   m_Name: UnnteractableTiles
   m_EditorClassIdentifier: 
-  tiles: []
+  tiles:
+  - {fileID: 11400000, guid: 011cc915680a3104ca0163dfd38a3575, type: 2}
+  - {fileID: 11400000, guid: 2e9038676a8e1b042bde11ba87e4399d, type: 2}
   walkable: 0
