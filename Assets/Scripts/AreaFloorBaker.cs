@@ -8,7 +8,7 @@ using NavMeshBuilder = UnityEngine.AI.NavMeshBuilder;
 public class AreaFloorBaker : MonoBehaviour
 {
     [SerializeField] private NavMeshSurface surface;
-    [SerializeField] private Camera player;
+    [SerializeField] private GameObject player;
     [SerializeField] private float updateRate = 0.1f;
     [SerializeField] private float movementThreshold = 3;
     [SerializeField] private Vector3 navMeshSize = new Vector3(20, 20, 1);
@@ -25,7 +25,6 @@ public class AreaFloorBaker : MonoBehaviour
         NavMesh.AddNavMeshData(navMeshData);
         BuildNavMesh(false);
         StartCoroutine(CheckPlayerMovement());
-
     }
 
     private IEnumerator CheckPlayerMovement()
@@ -45,6 +44,7 @@ public class AreaFloorBaker : MonoBehaviour
 
     private void BuildNavMesh(bool Async)
     {
+        Debug.Log("Rebuilding NavMesh");
         Bounds navMeshBounds = new Bounds(player.transform.position,navMeshSize);
         List<NavMeshBuildMarkup> markups = new List<NavMeshBuildMarkup>();
 
