@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -8,32 +6,34 @@ using TMPro;
 
 public class TileInteraction : MonoBehaviour
 {
+    [Header("Tilemaps and tiles to interact")]
     [SerializeField] private Tilemap[] map;
-    [SerializeField] private Tile tileGreen;
-    [SerializeField] public Tile tileYellow;
     [SerializeField] private Tilemap indicatorMap;
+    [SerializeField] private Tile tileGreen;
+    [SerializeField] private Tile tileYellow;
     [SerializeField] private Tile indicator;
-    public Vector3Int gridPositionMem;
-    
-    public Vector3Int gridPosition;
+    [SerializeField] private List<TileData> tileDatas;
 
+    [HideInInspector] public Vector3Int gridPositionMem;
+    [HideInInspector] public Vector3Int gridPosition;
 
+    [Header("UI refrences")]
     [SerializeField] private GameObject tileDetailsUI;
-
     [SerializeField] private TextMeshProUGUI tileTypeUI;
     [SerializeField] private TextMeshProUGUI tilePositionUI;
     [SerializeField] private TextMeshProUGUI tilePathableUI;
 
-    [SerializeField] private List<TileData> tileDatas;
+    
     private Dictionary<TileBase,TileData>dataFromTiles;
 
-    public TileBase clickedTile;
-    public TileBase clickedTileMem;
+    [HideInInspector] public TileBase clickedTile;
+    [HideInInspector] public TileBase clickedTileMem;
 
 
 
     private void Awake()
     {
+        //get tile data from scriptableObjects
         dataFromTiles = new Dictionary<TileBase, TileData>();
 
         foreach (var tileData in tileDatas)
@@ -43,12 +43,6 @@ public class TileInteraction : MonoBehaviour
                 dataFromTiles.Add(tile,tileData);
             }
         }
-        /*
-        foreach (var kvp in dataFromTiles)
-        {
-            Debug.Log(("Key = {0}, Value = {1}", kvp.Key, kvp.Value));
-        }
-        */
     }
 
     void Update()
@@ -56,13 +50,18 @@ public class TileInteraction : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             CloseUI();
+            //saving last position and tile data
+            clickedTileMem = clickedTile;
+            gridPositionMem = gridPosition;
+
             foreach (Tilemap tilemap in map) 
             {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                gridPosition = tilemap.WorldToCell(mousePosition);
+                Vector2 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                gridPosition = tilemap.WorldToCell(worldPosition);
 
                 clickedTile = tilemap.GetTile(gridPosition);
 
+                //logic to prevent gray and blue tiles from inspecting
                 if (clickedTile != null && (clickedTile == tileGreen || clickedTile == tileYellow))
                 {
                     indicatorMap.SetTile(gridPositionMem, null);
@@ -70,11 +69,8 @@ public class TileInteraction : MonoBehaviour
 
                     indicatorMap.SetTile(gridPosition, indicator);
                     
-
-                    //uruchomi? UI pokazuj?ce tile data.
                     TurnOnUI(clickedTile, gridPosition);
-
-                    //imo: pozycja, rodzaj, pathable
+                    break;
                 }
                 else
                 {
@@ -82,18 +78,17 @@ public class TileInteraction : MonoBehaviour
                     
                 }
             }
-            gridPositionMem = gridPosition;
-            clickedTileMem = clickedTile;
         }
     }
 
-    private void CloseUI()
+    public void CloseUI()
     {
         tileDetailsUI.SetActive(false);
     }
 
     private void TurnOnUI(TileBase clickedTile, Vector3Int gridPosition)
     {
+        //UI setup
         tileDetailsUI.SetActive(true);
         tileTypeUI.SetText("Type of tile: " + clickedTile.name);
         tilePositionUI.SetText("x=" + gridPosition.x + " y=" + gridPosition.y);

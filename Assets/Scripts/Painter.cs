@@ -4,21 +4,29 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 public class Painter : MonoBehaviour
 {
-    public Tile tileGreen;
-    public Tile tileBlue;
-    public Tile tileYellow;
-    public Tile tileGray;
-    public Tilemap tilemap;
-    public Tilemap tilemapUnwalkable;
-    public Vector3Int position;
+    [Header("Tiles and Tilemaps setup")]
+    [SerializeField] private Tile tileGreen;
+    [SerializeField] private Tile tileBlue;
+    [SerializeField] private Tile tileYellow;
+    [SerializeField] private Tile tileGray;
+    [SerializeField] private Tilemap tilemap;
+    [SerializeField] private Tilemap tilemapUnwalkable;
 
 
+    [Header("Grid specifications")]
+    [SerializeField] private Vector3Int position;
     [SerializeField] private int hight;
     [SerializeField] private int width;
 
-    [ContextMenu("Paint")]
-   
 
+
+    private void Start()
+    {
+        position = new Vector3Int(0, 0, 0);
+        hight = 1000;
+        width = 1000;
+    }
+    [ContextMenu("Paint")]
     void Paint()
     {
         DePaint();
