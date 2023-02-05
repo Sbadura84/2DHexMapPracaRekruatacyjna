@@ -48,7 +48,9 @@ public class PointToPoint : MonoBehaviour
         }
 
         //Gating line drawing untill two tiles of same type are chosen
-        if (clickedTile == clickedTileMem && clickedTile == pathFindTileColor && tileInteraction.gridPosition != tileInteraction.gridPositionMem)
+        if (clickedTile == clickedTileMem 
+            && clickedTile == pathFindTileColor 
+            && tileInteraction.gridPosition != tileInteraction.gridPositionMem)
         {
             //set start and end point of NavMeshAgent
             startPos.transform.position = grid.CellToWorld(tileInteraction.gridPosition);

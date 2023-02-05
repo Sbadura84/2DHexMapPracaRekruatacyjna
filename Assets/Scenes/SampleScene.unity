@@ -873,6 +873,7 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   hight: 100
   width: 100
+  autoStart: 0
 --- !u!4 &819965493
 Transform:
   m_ObjectHideFlags: 0
@@ -35270,7 +35271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1356432174
 Transform:
   m_ObjectHideFlags: 0
@@ -35627,6 +35628,7 @@ GameObject:
   - component: {fileID: 1796889038}
   - component: {fileID: 1796889040}
   - component: {fileID: 1796889039}
+  - component: {fileID: 1796889041}
   m_Layer: 0
   m_Name: NavMesh Surface
   m_TagString: Untagged
@@ -35695,6 +35697,23 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: 9fe95b25be39d544dbb0cc38ba60f80a, type: 2}
+--- !u!114 &1796889041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1796889037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3a7720625d460643ae923eb3821e248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surface: {fileID: 0}
+  player: {fileID: 0}
+  updateRate: 0.1
+  movementThreshold: 3
+  navMeshSize: {x: 20, y: 20, z: 1}
 --- !u!1 &1847232687
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,13 +18,19 @@ public class Painter : MonoBehaviour
     [SerializeField] private int hight;
     [SerializeField] private int width;
 
+    [SerializeField] bool autoStart;
+
 
 
     private void Start()
     {
-        position = new Vector3Int(0, 0, 0);
-        hight = 1000;
-        width = 1000;
+        if (autoStart == true)
+        {
+            position = new Vector3Int(0, 0, 0);
+            hight = 1000;
+            width = 1000;
+            Paint();
+        }
     }
     [ContextMenu("Paint")]
     void Paint()
