@@ -209,7 +209,7 @@ public class Painter : MonoBehaviour
         //Clears grid from (-1,-1) to (1001,1001)
         for (int i = - 1; i < maxWidth + 1; i++)
         {
-            for (int j = 1; j < maxHight + 1; j++)
+            for (int j = -1; j < maxHight + 1; j++)
             {
                 tilemap.SetTile(new Vector3Int(i, j, 0), null);
                 tilemapUnwalkable.SetTile(new Vector3Int(i, j, 0), null);
