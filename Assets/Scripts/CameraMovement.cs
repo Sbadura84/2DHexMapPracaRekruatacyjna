@@ -14,11 +14,13 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Camera cam;
     private Vector3 originPoint;
     [SerializeField] private float mouseSensitivity = 1;
+    private float mouseSensitivityAutoMode = 1;
+    [SerializeField] Painter painter;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        mouseSensitivityAutoMode = mouseSensitivity / 2;
     }
 
     // Update is called once per frame
@@ -33,10 +35,28 @@ public class CameraMovement : MonoBehaviour
 
         } else if (Input.GetMouseButton(1)){
             Cursor.lockState = CursorLockMode.Locked;
-            horizontalInput = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            verticalInput = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-            horizontalSum = horizontalSum + horizontalInput;
-            verticalSum = verticalSum + verticalInput;
+            if (painter.autoPaint)
+            {
+                horizontalInput = Input.GetAxis("Mouse X") * mouseSensitivityAutoMode * Time.deltaTime;
+                verticalInput = Input.GetAxis("Mouse Y") * mouseSensitivityAutoMode * Time.deltaTime;
+                horizontalSum = horizontalSum + horizontalInput;
+                verticalSum = verticalSum + verticalInput;
+
+                //speed limit
+                if (horizontalSum > 0.5) horizontalSum = 0.5f;
+                if (horizontalSum < -0.5) horizontalSum = -0.5f;
+                if (verticalSum > 0.5) verticalSum = 0.5f;
+                if (verticalSum < -0.5) verticalSum = -0.5f;
+            }
+                
+            else
+            {
+                horizontalInput = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+                verticalInput = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+                horizontalSum = horizontalSum + horizontalInput;
+                verticalSum = verticalSum + verticalInput;
+            }
+
             cam.transform.position += new Vector3(horizontalSum, verticalSum, 0);
             
         }
@@ -47,18 +67,6 @@ public class CameraMovement : MonoBehaviour
         }
         
 
-        /*
-        if (Input.GetMouseButtonDown(1))
-        {
-            originPoint = cam.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(originPoint);
-        }
-        if (Input.GetMouseButton(1))
-        {
-            float differenceY = originPoint.y - cam.ScreenToWorldPoint(Input.mousePosition).y;
-            float differenceX = originPoint.x - cam.ScreenToWorldPoint(Input.mousePosition).x;
-        cam.transform.position += new Vector3(differenceX,differenceY,0);
-        }
-        */
+
     }
 }

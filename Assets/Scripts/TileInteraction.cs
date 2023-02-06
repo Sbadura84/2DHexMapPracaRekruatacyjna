@@ -2,7 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using TMPro;
-
+using UnityEngine.UI;
+using TreeEditor;
+using UnityEngine.UIElements;
 
 public class TileInteraction : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class TileInteraction : MonoBehaviour
 
     [Header("UI refrences")]
     [SerializeField] private GameObject tileDetailsUI;
+    [SerializeField] private UnityEngine.UI.Image tileImageUI;
     [SerializeField] private TextMeshProUGUI tileTypeUI;
     [SerializeField] private TextMeshProUGUI tilePositionUI;
     [SerializeField] private TextMeshProUGUI tilePathableUI;
@@ -68,7 +71,7 @@ public class TileInteraction : MonoBehaviour
                     Debug.Log("At position " + gridPosition + " there is a " + clickedTile+"\n");
 
                     indicatorMap.SetTile(gridPosition, indicator);
-                    
+
                     TurnOnUI(clickedTile, gridPosition);
                     break;
                 }
@@ -90,6 +93,8 @@ public class TileInteraction : MonoBehaviour
     {
         //UI setup
         tileDetailsUI.SetActive(true);
+        if (clickedTile == tileGreen) tileImageUI.sprite = tileGreen.sprite;
+        else if (clickedTile == tileYellow) tileImageUI.sprite = tileYellow.sprite;
         tileTypeUI.SetText("Type of tile: " + clickedTile.name);
         tilePositionUI.SetText("x=" + gridPosition.x + " y=" + gridPosition.y);
         tilePathableUI.SetText("Is pathable?: " + dataFromTiles[clickedTile].walkable.ToString());

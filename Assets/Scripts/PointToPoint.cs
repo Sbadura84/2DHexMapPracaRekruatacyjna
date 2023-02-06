@@ -10,6 +10,7 @@ public class PointToPoint : MonoBehaviour
     [SerializeField] private TileBase pathFindTileColor;
     [SerializeField] private Grid grid;
     [SerializeField] NavMeshAgent agent;
+    [SerializeField] private Painter painter;
 
     private GameObject startPos;
     private GameObject endPos;
@@ -32,46 +33,47 @@ public class PointToPoint : MonoBehaviour
     }
     private void Update()
     {
-
-        //Gating successive line rendering
-        if (Input.GetMouseButtonDown(0) && lineRenderer.positionCount == 0)
+        if ((painter.width < 300 && painter.hight < 300)
+            && painter.autoPaint == false)
         {
-            clickedTile = tileInteraction.clickedTile;
-            clickedTileMem = tileInteraction.clickedTileMem;
-            Debug.Log("Clicked tile = " + clickedTile + "\n ClickedTileMem = " + clickedTileMem);
+            //Gating successive line rendering
+            if (Input.GetMouseButtonDown(0) && lineRenderer.positionCount == 0)
+            {
+                clickedTile = tileInteraction.clickedTile;
+                clickedTileMem = tileInteraction.clickedTileMem;
+                Debug.Log("Clicked tile = " + clickedTile + "\n ClickedTileMem = " + clickedTileMem);
+            }
+            else if(Input.GetMouseButtonDown(0) && lineRenderer.positionCount > 0)
+            {
+                clickedTile = null;
+                ClearPath();
+                Debug.Log("Clicked tile = " + clickedTile + "\n ClickedTileMem = " + clickedTileMem);
+            }
+
+            //Gating line drawing untill two tiles of same type are chosen
+            if (clickedTile == clickedTileMem 
+                && clickedTile == pathFindTileColor 
+                && tileInteraction.gridPosition != tileInteraction.gridPositionMem)
+            {
+                //set start and end point of NavMeshAgent
+                startPos.transform.position = grid.CellToWorld(tileInteraction.gridPosition);
+                endPos.transform.position = grid.CellToWorld(tileInteraction.gridPositionMem);
+
+                startPos.SetActive(true);
+                endPos.SetActive(true);
+
+                agent.SetDestination(endPos.transform.position);
+
+                //line rendereing
+                DrawPath();
+            }
+            else
+            {
+                ClearPath();
+                startPos.SetActive(false);
+                endPos.SetActive(false);
+            }
         }
-        else if(Input.GetMouseButtonDown(0) && lineRenderer.positionCount > 0)
-        {
-            clickedTile = null;
-            ClearPath();
-            Debug.Log("Clicked tile = " + clickedTile + "\n ClickedTileMem = " + clickedTileMem);
-        }
-
-        //Gating line drawing untill two tiles of same type are chosen
-        if (clickedTile == clickedTileMem 
-            && clickedTile == pathFindTileColor 
-            && tileInteraction.gridPosition != tileInteraction.gridPositionMem)
-        {
-            //set start and end point of NavMeshAgent
-            startPos.transform.position = grid.CellToWorld(tileInteraction.gridPosition);
-            endPos.transform.position = grid.CellToWorld(tileInteraction.gridPositionMem);
-
-            startPos.SetActive(true);
-            endPos.SetActive(true);
-
-            agent.SetDestination(endPos.transform.position);
-
-            //line rendereing
-            DrawPath();
-        }
-        else
-        {
-            ClearPath();
-            startPos.SetActive(false);
-            endPos.SetActive(false);
-        }
-
-
     }
 
 
