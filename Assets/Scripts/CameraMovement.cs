@@ -12,7 +12,6 @@ public class CameraMovement : MonoBehaviour
     private float verticalSpeed;
 
     [SerializeField] private Camera cam;
-    private Vector3 originPoint;
     [SerializeField] private float mouseSensitivity = 1;
     private float mouseSensitivityAutoMode = 1;
     [SerializeField] Painter painter;

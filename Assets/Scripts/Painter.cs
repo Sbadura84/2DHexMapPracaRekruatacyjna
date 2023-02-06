@@ -21,8 +21,10 @@ public class Painter : MonoBehaviour
     [SerializeField] public int hight;
     [SerializeField] public int width;
 
+    [Header("Program settings")]
     [SerializeField] public bool autoPaint;
     [SerializeField] private bool paintAtBeginning;
+    [SerializeField] public bool pathing;
 
     [SerializeField] GameObject user;
 

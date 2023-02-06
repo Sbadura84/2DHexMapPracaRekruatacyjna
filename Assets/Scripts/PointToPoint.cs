@@ -34,7 +34,7 @@ public class PointToPoint : MonoBehaviour
     private void Update()
     {
         if ((painter.width < 300 && painter.hight < 300)
-            && painter.autoPaint == false)
+            && painter.autoPaint == false && painter.pathing == true)
         {
             //Gating successive line rendering
             if (Input.GetMouseButtonDown(0) && lineRenderer.positionCount == 0)

@@ -874,8 +874,9 @@ MonoBehaviour:
   position: {x: 0, y: 0, z: 0}
   hight: 100
   width: 100
-  autoPaint: 0
+  autoPaint: 1
   paintAtBeginning: 1
+  pathing: 0
   user: {fileID: 519420028}
   map:
   - {fileID: 2125292484}

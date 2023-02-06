@@ -18,7 +18,7 @@ public class AreaFloorBaker : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
         if ((painter.width < 300 && painter.hight < 300) 
-            && painter.autoPaint == false)
+            && painter.autoPaint == false && painter.pathing == true)
         {
             EditorUtility.DisplayDialog("Line renderer", "Baking AI mesh, might take a while", "ok");
             BuildMesh();
